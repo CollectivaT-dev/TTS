@@ -4,7 +4,7 @@ from anyascii import anyascii
 
 from TTS.tts.utils.text.chinese_mandarin.numbers import replace_numbers_to_characters_in_text
 
-from .abbreviations import abbreviations_en, abbreviations_fr
+from .abbreviations import abbreviations_en, abbreviations_fr, abbreviations_ca
 from .number_norm import normalize_numbers
 from .time import expand_time_english
 
@@ -17,6 +17,8 @@ def expand_abbreviations(text, lang="en"):
         _abbreviations = abbreviations_en
     elif lang == "fr":
         _abbreviations = abbreviations_fr
+    elif lang == "ca":
+        _abbreviations = abbreviations_ca
     for regex, replacement in _abbreviations:
         text = re.sub(regex, replacement, text)
     return text
@@ -45,7 +47,8 @@ def remove_aux_symbols(text):
 
 def replace_symbols(text, lang="en"):
     text = text.replace(";", ",")
-    text = text.replace("-", " ")
+    if lang != "ca":
+        text = text.replace("-", " ")
     text = text.replace(":", ",")
     if lang == "en":
         text = text.replace("&", " and ")
@@ -53,6 +56,10 @@ def replace_symbols(text, lang="en"):
         text = text.replace("&", " et ")
     elif lang == "pt":
         text = text.replace("&", " e ")
+    elif lang == "ca":
+        text = text.replace("&", " i ")
+        text = text.replace("-", "")
+        text = text.replace("'","")
     return text
 
 
@@ -123,6 +130,16 @@ def portuguese_cleaners(text):
 def chinese_mandarin_cleaners(text: str) -> str:
     """Basic pipeline for chinese"""
     text = replace_numbers_to_characters_in_text(text)
+    return text
+
+
+def catalan_cleaners(text):
+    """Basic pipeline for Catalan text. Time and number conversion is missing."""
+    text = lowercase(text)
+    text = expand_abbreviations(text, lang="ca")
+    text = replace_symbols(text, lang="ca")
+    text = remove_aux_symbols(text)
+    text = collapse_whitespace(text)
     return text
 
 

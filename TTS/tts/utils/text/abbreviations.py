@@ -71,3 +71,15 @@ abbreviations_fr = [
         ("Mmes", "Mesdames"),
     ]
 ]
+
+abbreviations_ca = [
+    (re.compile("\\b%s\\." % x[0], re.IGNORECASE), x[1])
+    for x in [
+        ("tv3", "t v tres"),
+        ("pp", "p p"),
+        ("psoe", "p soe"),
+        ("cs", "ciutadans")
+    ]
+]
+
+
