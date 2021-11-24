@@ -69,8 +69,8 @@
         "pad": "_",
         "eos": "~",
         "bos": "^",
-        "characters": "AÀÁBCÇDEÉÈFGHIÍÏJKLMNOÓÒPQRSTUÜÚVWXYZaàábcçdeéèfghiíïjklmnoóòpqrstuüúvwxyz!'(),-.:;? ",
-        "punctuations": "!'(),-.:;? ",
+        "characters": "AÀÁBCÇDEÉÈFGHIÍÏJKLMNOÓÒPQRSTUÜÚVWXYZaàábcçdeéèfghiíïjklmnoóòpqrstuüúvwxyz!'(),-.:;?· ",
+        "punctuations": "!'(),-.:;?· ",
         "phonemes": null
     },
     "batch_group_size": 0,
