@@ -60,3 +60,34 @@ CUDA_VISIBLE_DEVICES="0"  python TTS/bin/train_tts.py \
 ```
 
 This is for a single GPU training, there is also a possibility to train on multiple GPUs via `TTS/bin/distribute.py`. For that, please consult the original documentation [here](https://tts.readthedocs.io/en/latest/training_a_model.html).
+
+## Fine tuning a Catalan model
+
+If it is not a fresh install, make sure you have the last version of the repo and install it. Because Catalan text cleaners are implemented in the new version.
+
+```
+git pull
+source venv/bin/activate
+pip install -e .[all]
+```
+
+After this step just use the download script for festcat data:
+
+```
+./recipes/festcat/download_festcat.sh
+```
+
+If it is not executable, use `chmod +x ./recipes/festcat/download_festcat.sh`. After this step you should have all the data and the new config files. The only change necessary is replacing the paths in the config file via:
+
+```
+sed 's|/content/TTS|'`pwd`'|g' recipes/festcat/speedy_speech/config.json > recipes/festcat/speedy_speech/config_local.json
+```
+The config file is written to train on Ona. If one wants to train Pau, simply change the Ona paths to Pau. They are at the same level. 
+
+Now we can simply launch the training script like above:
+
+```
+CUDA_VISIBLE_DEVICES="0"  python TTS/bin/train_tts.py --config_path  recipes/festcat/speedy_speech/config_local.json --restore_path  /home/<username>/.local/share/tts/tts_models--en--ljspeech--speedy-speech/model_file.pth.tar
+```
+
+Currently the scripts don't use espeak phonemes. There is a PR for the implementation in the coqui/TTS repo.
