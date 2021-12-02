@@ -18,7 +18,6 @@ cat $RUN_DIR/festcat_data/upc_ona*.txt > dummy
 sed 's|/content/adaptation_ona_wav/||g; s/.wav|/||/g;' dummy > $RUN_DIR/festcat_data/ona/metadata_ona.csv
 # pau data convert
 cat $RUN_DIR/festcat_data/upc_pau*.txt > dummy
-sed 's|/content/adaptation_pau_wav/||g; s/.wav|/||/g;' dummy > $RUN_DIR/festcat_data/ona/metadata_pau.csv
+sed 's|/content/adaptation_pau_wav/||g; s/.wav|/||/g;' dummy > $RUN_DIR/festcat_data/pau/metadata_pau.csv
 # cleaning
-rm dummy $RUN_DIR/festcat_data/upc_ona*.txt upc_ona_data.tar.gz
-rm dummy $RUN_DIR/festcat_data/upc_pau*.txt upc_pau_data.tar.gz
+rm dummy $RUN_DIR/festcat_data/upc_ona*.txt upc_ona_data.tar.gz $RUN_DIR/festcat_data/upc_pau*.txt upc_pau_data.tar.gz
