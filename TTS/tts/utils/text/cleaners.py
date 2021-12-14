@@ -3,6 +3,7 @@ import re
 from anyascii import anyascii
 
 from TTS.tts.utils.text.chinese_mandarin.numbers import replace_numbers_to_characters_in_text
+from TTS.tts.utils.text.catalan.numbers_ca import normalize_numbers_ca
 
 from .abbreviations import abbreviations_en, abbreviations_fr, abbreviations_ca
 from .number_norm import normalize_numbers
@@ -24,8 +25,11 @@ def expand_abbreviations(text, lang="en"):
     return text
 
 
-def expand_numbers(text):
-    return normalize_numbers(text)
+def expand_numbers(text, lang="en"):
+    if lang == "en":
+        return normalize_numbers(text)
+    elif lang == "ca":
+        return normalize_numbers_ca(text)
 
 
 def lowercase(text):
@@ -134,8 +138,9 @@ def chinese_mandarin_cleaners(text: str) -> str:
 
 
 def catalan_cleaners(text):
-    """Basic pipeline for Catalan text. Time and number conversion is missing."""
+    """Basic pipeline for Catalan text"""
     text = lowercase(text)
+    text = expand_numbers(text, lang="ca")
     text = expand_abbreviations(text, lang="ca")
     text = replace_symbols(text, lang="ca")
     text = remove_aux_symbols(text)

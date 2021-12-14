@@ -98,6 +98,7 @@ setup(
     package_data={
         "TTS": [
             "VERSION",
+            "tts/utils/text/catalan/ca.sor"
         ]
     },
     project_urls={
